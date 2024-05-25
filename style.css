@@ -1,0 +1,15 @@
+.video-screen {
+  display: none;
+  position: absolute;
+  height: 100vh;
+  height: 100svh;
+  width: 100vw;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  background-color: #222;
+}
+
+.visible {
+  display: flex;
+}
