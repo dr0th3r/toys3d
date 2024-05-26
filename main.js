@@ -1,11 +1,23 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+import { OutlinePass } from "three/addons/postprocessing/OutlinePass.js";
+import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
 
 async function loadRoom() {
   const loader = new GLTFLoader();
   const gltf = await loader.loadAsync("assets/room.glb");
   return gltf;
 }
+
+//misc
+const raycaster = new THREE.Raycaster();
+
+//MAKE A BETTER STRUCT FOR THIS LATER
+const selectableObjNames = ["Cube011"];
+const isSelectionVisible = true;
 
 //renderer
 const renderer = new THREE.WebGLRenderer();
@@ -36,7 +48,6 @@ function getIntersects(e) {
   mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-  const raycaster = new THREE.Raycaster();
   raycaster.setFromCamera(mouse, camera);
 
   return raycaster.intersectObjects(scene.children, true);
@@ -102,7 +113,39 @@ document.addEventListener("click", (e) => {
 //transition functions
 function easeInOutCubic(x) {
   return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+}
+
+//postprocessing
+const composer = new EffectComposer(renderer);
+composer.setSize(window.innerWidth, window.innerHeight);
+
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
+
+const outlinePass = new OutlinePass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  scene,
+  camera
+);
+composer.addPass(outlinePass);
+
+const GammaCorrectionShaderPass = new ShaderPass(GammaCorrectionShader);
+composer.addPass(GammaCorrectionShaderPass);
+
+document.addEventListener("mousemove", onMouseMove);
+
+function onMouseMove(e) {
+  if (!isSelectionVisible) return;
+  const intersects = getIntersects(e);
+  if (
+    intersects.length > 0 &&
+    selectableObjNames.includes(intersects[0].object.name)
+  ) {
+    outlinePass.selectedObjects = [intersects[0].object];
+  } else {
+    outlinePass.selectedObjects = [];
   }
+}
 
 //resize camera
 const zoomOut = 15; //the bigger the number, the more zoomed out the camera will be
@@ -129,6 +172,7 @@ function resizeCamera() {
 resizeCamera();
 window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight, true);
+  composer.setSize(window.innerWidth, window.innerHeight);
   resizeCamera();
 });
 
@@ -153,9 +197,9 @@ function animate() {
     } else {
       screen.style.opacity = easeInOutCubic(1 - animationProgress);
     }
-  }  
+  }
 
-  renderer.render(scene, camera);
+  composer.render();
 }
 
 animate();
