@@ -1,5 +1,5 @@
 .video-screen {
-  display: none;
+  display: flex;
   position: absolute;
   height: 100vh;
   height: 100svh;
@@ -8,8 +8,5 @@
   align-items: center;
   justify-content: center;
   background-color: #222;
-}
-
-.visible {
-  display: flex;
+  opacity: 0;
 }

@@ -29,6 +29,8 @@ const projectorAction = mixer.clipAction(projectorClip);
 //transitions
 const transitions = {};
 
+let currentTransition;
+
 function getIntersects(e) {
   const mouse = new THREE.Vector2();
   mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -43,23 +45,40 @@ function getIntersects(e) {
 function setupTransition(triggerObjName, action, goBackBtn, newScreen) {
   let isOnScreen = false;
 
+  const duration = action.getClip().duration;
+  const transitionTempalte = {
+    action,
+    duration,
+    screen: newScreen,
+    isPlayingForwards: !isOnScreen,
+  };
+
   action.loop = THREE.LoopPingPong;
   action.paused = true;
   action.play();
 
   const mixer = action.getMixer();
   mixer.addEventListener("loop", () => {
+    currentTransition = null;
     action.paused = true;
     isOnScreen = !isOnScreen;
-    isOnScreen && newScreen.classList.add("visible");
+    isOnScreen && (newScreen.style.opacity = 1);
   });
 
   goBackBtn.addEventListener("click", () => {
+    currentTransition = {
+      ...transitionTempalte,
+      isPlayingForwards: !isOnScreen,
+    };
     action.paused = false;
-    newScreen.classList.remove("visible");
+    newScreen.style.opacity = 0;
   });
 
   transitions[triggerObjName] = () => {
+    currentTransition = {
+      ...transitionTempalte,
+      isPlayingForwards: !isOnScreen,
+    };
     action.paused = false;
   };
 }
@@ -79,6 +98,11 @@ document.addEventListener("click", (e) => {
     transitions[triggerObjName] && transitions[triggerObjName]();
   }
 });
+
+//transition functions
+function easeInOutCubic(x) {
+  return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  }
 
 //resize camera
 const zoomOut = 15; //the bigger the number, the more zoomed out the camera will be
@@ -119,6 +143,17 @@ function animate() {
   requestAnimationFrame(animate);
 
   mixer.update(clock.getDelta());
+
+  if (currentTransition) {
+    const { action, duration, screen, isPlayingForwards } = currentTransition;
+
+    const animationProgress = action.time / duration;
+    if (isPlayingForwards) {
+      screen.style.opacity = easeInOutCubic(animationProgress);
+    } else {
+      screen.style.opacity = easeInOutCubic(1 - animationProgress);
+    }
+  }  
 
   renderer.render(scene, camera);
 }
