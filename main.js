@@ -20,12 +20,65 @@ const camera = model.cameras[0];
 
 //animations
 const mixer = new THREE.AnimationMixer(model.scene);
-const clip = THREE.AnimationClip.findByName(
+const projectorClip = THREE.AnimationClip.findByName(
   model.animations,
   "CameraAction.001"
 );
-const cameraAction = mixer.clipAction(clip);
-cameraAction.play();
+const projectorAction = mixer.clipAction(projectorClip);
+
+//transitions
+const transitions = {};
+
+function getIntersects(e) {
+  const mouse = new THREE.Vector2();
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+  const raycaster = new THREE.Raycaster();
+  raycaster.setFromCamera(mouse, camera);
+
+  return raycaster.intersectObjects(scene.children, true);
+}
+
+function setupTransition(triggerObjName, action, goBackBtn, newScreen) {
+  let isOnScreen = false;
+
+  action.loop = THREE.LoopPingPong;
+  action.paused = true;
+  action.play();
+
+  const mixer = action.getMixer();
+  mixer.addEventListener("loop", () => {
+    action.paused = true;
+    isOnScreen = !isOnScreen;
+    isOnScreen && newScreen.classList.add("visible");
+  });
+
+  goBackBtn.addEventListener("click", () => {
+    action.paused = false;
+    newScreen.classList.remove("visible");
+  });
+
+  transitions[triggerObjName] = () => {
+    action.paused = false;
+  };
+}
+
+setupTransition(
+  "Cube011",
+  projectorAction,
+  document.querySelector(".go-back"),
+  document.querySelector(".video-screen")
+);
+
+document.addEventListener("click", (e) => {
+  const intersects = getIntersects(e);
+  if (intersects.length > 0) {
+    const triggerObjName = intersects[0].object.name;
+    console.log(triggerObjName);
+    transitions[triggerObjName] && transitions[triggerObjName]();
+  }
+});
 
 //resize camera
 const zoomOut = 15; //the bigger the number, the more zoomed out the camera will be
