@@ -73,7 +73,13 @@ function setupTransition(triggerObjName, action, goBackBtn, newScreen) {
     currentTransition = null;
     action.paused = true;
     isOnScreen = !isOnScreen;
-    isOnScreen && (newScreen.style.opacity = 1);
+    if (isOnScreen) {
+      newScreen.style.opacity = 1;
+      newScreen.style.overflow = "auto";
+    } else {
+      newScreen.style.display = "none";
+      newScreen.style.overflow = "hidden";
+    }
   });
 
   goBackBtn.addEventListener("click", () => {
@@ -90,6 +96,9 @@ function setupTransition(triggerObjName, action, goBackBtn, newScreen) {
       ...transitionTempalte,
       isPlayingForwards: !isOnScreen,
     };
+    //update style
+    newScreen.style.display = "flex";
+    newScreen.style.overflow = "hidden";
     action.paused = false;
   };
 }
@@ -141,8 +150,10 @@ function onMouseMove(e) {
     intersects.length > 0 &&
     selectableObjNames.includes(intersects[0].object.name)
   ) {
+    document.body.style.cursor = "pointer";
     outlinePass.selectedObjects = [intersects[0].object];
   } else {
+    document.body.style.cursor = "default";
     outlinePass.selectedObjects = [];
   }
 }
