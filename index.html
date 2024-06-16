@@ -4,109 +4,146 @@
 		<meta charset="utf-8">
 		<title>My first three.js app</title>
 		<link rel="stylesheet" href="style.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/Tween.min.js"></script>
-
-		<style>
-			body { margin: 0; }
-		</style>
 	</head>
+
 	<body>
+		<button id="go-back">GO BACK</button>
 		<script type="module" src="/main.js"></script>
-		<div class="video-screen">
-				<div class="gallery">
-					<img class="four-grid-cells"
-							src="https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg"
-							alt="Northern Winter Sky Image" />
-
-					<img
-							src="https://images.pexels.com/photos/1142950/pexels-photo-1142950.jpeg"
-							alt="Shining Stars Image" />
-
-					<img class="wide-image"
-							src="https://images.pexels.com/photos/3933881/pexels-photo-3933881.jpeg"
-							alt="A River Flowing Image" />
-
-					<img
-							src="https://images.pexels.com/photos/5409751/pexels-photo-5409751.jpeg"
-							alt="A cloudy Mountain Image" />
-
-					<img
-							src="https://images.pexels.com/photos/4101555/pexels-photo-4101555.jpeg"
-							alt="A Winter Rainbow Image" />
-
-					<img class="wide-image"
-							src="https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg"
-							alt="A Clean Mountain Lake" />
-
-					<img
-							src="https://images.pexels.com/photos/1142950/pexels-photo-1142950.jpeg"
-							alt="Shining Stars Image" />
+		<div class="container teacher-overlay hidden">
+			<div class="left">
+					<ul class="teacher">
+						<li><h2>RNDr. Miroslav Moser</h2></li>
+						<li>Zástupce ředitele</li>
+						<li>Učitel matematiky a fyziky</li>
+						<li><a href="mailto:moser@ssudbrno.cz">moser@ssudbrno.cz</a></li>
+						<li><a href="tel:+420543421360">moser@ssudbrno.cz</a></li>
+					</ul>
+					<ul class="teacher">
+						<li><h2>RNDr. Miroslav Moser</h2></li>
+						<li>Zástupce ředitele</li>
+						<li>Učitel matematiky a fyziky</li>
+						<li><a href="mailto:moser@ssudbrno.cz">moser@ssudbrno.cz</a></li>
+						<li><a href="tel:+420543421360">moser@ssudbrno.cz</a></li>
+					</ul>
+					<ul class="teacher">
+						<li><h2>RNDr. Miroslav Moser</h2></li>
+						<li>Zástupce ředitele</li>
+						<li>Učitel matematiky a fyziky</li>
+						<li><a href="mailto:moser@ssudbrno.cz">moser@ssudbrno.cz</a></li>
+						<li><a href="tel:+420543421360">moser@ssudbrno.cz</a></li>
+					</ul>
 			</div>
-			    <div class="notebook">
-			        <div class="gallery" id="adobe">
-			                <div class="column">
-			                  <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                  <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                  <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                  <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                  <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                  <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                </div>
-			                <div class="column">
-			                    <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                    <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                    <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                  </div>
-			                  <div class="column">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                    <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                    <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                  </div>
-			                  <div class="column">
-			                    <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                    <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                    <img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
-			                    <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
-			                  </div>
-			        </div>
-			        <div class="gallery hidden" id="rhino">
-			            <div class="placeholder"></div>
-			            <div class="placeholder"></div>
-			            <div class="placeholder"></div>
-			            <div class="placeholder"></div>
-			            <div class="placeholder"></div>
-			            <div class="placeholder"></div>
-			        </div>
-			        <nav>
-			            <img id="adobe-btn" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Adobe_Systems_logo_and_wordmark.svg/1200px-Adobe_Systems_logo_and_wordmark.svg.png">
-			            <img id="rhino-btn" src="https://seeklogo.com/images/R/rhinoceros-3d-logo-770376F408-seeklogo.com.png" alt="">
-			        </nav>
-			        <script>
-			            const adobeBtn = document.getElementById("adobe-btn");
-			            const rhinoBtn = document.getElementById("rhino-btn");
-			            const adobeGallery = document.getElementById("adobe");
-			            const rhinoGallery = document.getElementById("rhino");
-			    
-			            adobeBtn.addEventListener("click", () => {
-			                adobeGallery.classList.remove("hidden");
-			                rhinoGallery.classList.add("hidden");
-			            })
-			            rhinoBtn.addEventListener("click", () => {
-			                adobeGallery.classList.add("hidden");
-			                rhinoGallery.classList.remove("hidden");
-			            })
-			        </script>
-			    </div>
-			<button class="go-back">Go Back</button>
+			<div class="right">
+				<ul class="teacher">
+					<li><h2>RNDr. Miroslav Moser</h2></li>
+					<li>Zástupce ředitele</li>
+					<li>Učitel matematiky a fyziky</li>
+					<li><a href="mailto:moser@ssudbrno.cz">moser@ssudbrno.cz</a></li>
+					<li><a href="tel:+420543421360">moser@ssudbrno.cz</a></li>
+				</ul>
+				<ul class="teacher">
+					<li><h2>RNDr. Miroslav Moser</h2></li>
+					<li>Zástupce ředitele</li>
+					<li>Učitel matematiky a fyziky</li>
+					<li><a href="mailto:moser@ssudbrno.cz">moser@ssudbrno.cz</a></li>
+					<li><a href="tel:+420543421360">moser@ssudbrno.cz</a></li>
+				</ul>
+				<ul class="teacher">
+					<li><h2>RNDr. Miroslav Moser</h2></li>
+					<li>Zástupce ředitele</li>
+					<li>Učitel matematiky a fyziky</li>
+					<li><a href="mailto:moser@ssudbrno.cz">moser@ssudbrno.cz</a></li>
+					<li><a href="tel:+420543421360">moser@ssudbrno.cz</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="container teddy-overlay hidden">
+			<h2>Procházet galerii</h2>
+			<div class="gallery-toys">
+				<div class="placeholder"></div>
+				<div class="placeholder"></div>
+				<div class="placeholder"></div>
+				<div class="placeholder"></div>
+				<div class="placeholder"></div>
+			</div>
+		</div>
+		<div class="container projects-overlay hidden">
+			<div class="project">
+				<img src="https://www.sspu-opava.cz/media/filer_public_thumbnails/filer_public/86/ef/86ef165e-980e-48d5-a51c-a4bdb17f1d72/banner-kromeriz.jpg__800x450_q85_crop_subsampling-2.jpg" alt="project">
+				<h2>
+					<a href="https://www.sspu-opava.cz/cs/zpravy/floristicka-soutez-v-kromerizi/">Floristická soutěž v Kroměříži</a>
+				</h2>
+				<div class="project-description">
+					<p>V malebném prostředí Arcibiskupského zámku v Kroměříži se 30. května konalo zemského kolo floristické soutěže, které se zúčastnila také naše studentka prvního ročníku oboru Tvorba hraček a herních předmětů  Tereza Bednaříková. Soutěž pořádal Český zahrádkářský svaz. Tématem soutěže byly kytice pro učitele na konec školního roku. Soutěžící museli splnit dvě zadání- vázali řezanou kytici a zdobili kytici v květináči.</p>
+					<p>Během soutěže měli pořadatelé připraveno také překvapení pro soutěžící i jejich doprovod. S dobově oblečeným průvodcem jsme si mohli prohlédnout Obrazárnu, která se se svými sbírkami řadí mezi nejhodnotnější evropské obrazárny. Také jsme nahlédli do nové i staré knihovny čítající tisíce starých tisků.</p>
+				</div>
+			</div>
+			<div class="project">
+				<img src="https://www.sspu-opava.cz/media/filer_public_thumbnails/filer_public/86/ef/86ef165e-980e-48d5-a51c-a4bdb17f1d72/banner-kromeriz.jpg__800x450_q85_crop_subsampling-2.jpg" alt="project">
+				<h2>
+					<a href="https://www.sspu-opava.cz/cs/zpravy/floristicka-soutez-v-kromerizi/">Floristická soutěž v Kroměříži</a>
+				</h2>
+				<div class="project-description">
+					<p>V malebném prostředí Arcibiskupského zámku v Kroměříži se 30. května konalo zemského kolo floristické soutěže, které se zúčastnila také naše studentka prvního ročníku oboru Tvorba hraček a herních předmětů  Tereza Bednaříková. Soutěž pořádal Český zahrádkářský svaz. Tématem soutěže byly kytice pro učitele na konec školního roku. Soutěžící museli splnit dvě zadání- vázali řezanou kytici a zdobili kytici v květináči.</p>
+					<p>Během soutěže měli pořadatelé připraveno také překvapení pro soutěžící i jejich doprovod. S dobově oblečeným průvodcem jsme si mohli prohlédnout Obrazárnu, která se se svými sbírkami řadí mezi nejhodnotnější evropské obrazárny. Také jsme nahlédli do nové i staré knihovny čítající tisíce starých tisků.</p>
+				</div>
+			</div>
+		</div>
+		<div class="container projector-overlay hidden">
+			<div class="video-grid">
+				<iframe width="702" height="395" src="https://www.youtube.com/embed/lJIrF4YjHfQ" title="Embed videos and playlists" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				<iframe width="702" height="395" src="https://www.youtube.com/embed/lJIrF4YjHfQ" title="Embed videos and playlists" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				<iframe width="702" height="395" src="https://www.youtube.com/embed/lJIrF4YjHfQ" title="Embed videos and playlists" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+				<iframe width="702" height="395" src="https://www.youtube.com/embed/lJIrF4YjHfQ" title="Embed videos and playlists" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+			</div>
+		</div>
+		<div class="container notebook-overlay">
+			<div class="gallery" id="adobe">
+							<div class="column">
+								<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+								<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+								<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+								<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+								<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+								<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+							</div>
+							<div class="column">
+									<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+									<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+									<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+								</div>
+								<div class="column">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+									<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+									<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+								</div>
+								<div class="column">
+									<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+									<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+									<img src="https://i.pinimg.com/564x/ac/27/1d/ac271de883faa03617b212beeda73db3.jpg">
+									<img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fHww">
+								</div>
+			</div>
+			<div class="gallery hidden" id="rhino">
+					<div class="placeholder"></div>
+					<div class="placeholder"></div>
+					<div class="placeholder"></div>
+					<div class="placeholder"></div>
+					<div class="placeholder"></div>
+					<div class="placeholder"></div>
+			</div>
+			<nav>
+					<img id="adobe-btn" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Adobe_Systems_logo_and_wordmark.svg/1200px-Adobe_Systems_logo_and_wordmark.svg.png">
+					<img id="rhino-btn" src="https://seeklogo.com/images/R/rhinoceros-3d-logo-770376F408-seeklogo.com.png" alt="">
+			</nav>
 		</div>
 	</body>
 </html>

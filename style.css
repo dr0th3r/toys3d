@@ -1,143 +1,243 @@
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-
-.video-screen {
-  display: none;
+#go-back { 	
   position: absolute;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  background-color: #222;
-  opacity: 0;
-  padding: 2rem;
-}
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: auto;
-  grid-auto-flow: dense;
-  gap: 6px;
-  max-width: 80%;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-img.four-grid-cells {
-  grid-row: span 2 / auto;
-  grid-column: span 2 / auto;
-}
-
-img.wide-image {
-  grid-column: span 2 / auto;
-}
-
-.go-back {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 4rem;
-  padding: 1rem;
-  border: none;
-  outline: none;
-  border-radius: 12px;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 100;
   background-color: #fff;
+  color: black;
+  border-radius: 12px;
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease-out;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: none;
+  font-size: 1.5rem;
 }
 
-.go-back:hover {
-  background-color: #aaaaaa;
-}
-
-.gallery {
-    position: absolute;
-    max-height: calc(100vh - 4rem);
-    max-height: calc(100svh - 4rem);
-    overflow: auto;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 4px;
-    left: 0;
-    right: 0;
-    transition: all 0.5s;
-}
-
-/* Create four equal columns that sits next to each other */
-.column {
-    flex: calc(25% - 16px);
-    max-width: 25%;
-    padding: 0 4px;
-}
-
-.column img {
-    margin-top: 8px;
-    vertical-align: middle;
-    width: 100%;
-    border-radius: 12px;
-}
-
-/* Responsive layout - makes a two column-layout instead of four columns */
-@media screen and (max-width: 800px) {
-    .column {
-        flex: 50%;
-        max-width: 50%;
-    }
-}
-
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-    .column {
-        flex: 100%;
-        max-width: 100%;
-    }
-}
-
-#rhino {
-    display: grid;
-    padding: .5rem;
-    gap: .5rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-template-rows: auto;
-    align-content: start;
-}
-
-.placeholder {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16/9;
-    background-color: #333;
-    border-radius: 12px;
-}
-
-nav {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    gap: .2rem;
-    padding: .5rem;
-    background-color: #ddd;
-}
-
-nav>img {
-    width: 3rem;
-    height: 3rem;
-    cursor: pointer;
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  opacity: 0;
 }
 
 .hidden {
-    opacity: 0;
+  display: none !important;
+}
+
+.teacher-overlay {
+  background-image: linear-gradient(to right, 
+    rgba(30, 30, 30, 1) 0%, rgba(30, 30, 30, .9) 33%, rgba(3, 3, 3, 0) 40%,  
+    rgba(3, 3, 3, 0) 60%, rgba(30, 30, 30, .9) 67%, rgba(3, 3, 3, 1) 100%
+  );
+  padding: 1rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content:space-between;
+}
+
+.teacher-overlay .left, .teacher-overlay .right{
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.teacher {
+  list-style: none;
+  text-align: right;
+}
+
+.right .teacher {
+  text-align: left;
+}
+
+.teacher > li > * {
+  color: #fff;
+}
+
+.teddy-overlay {
+  position: absolute;
+  left: 60%;
+  width: 40%;
+  background-image: linear-gradient(to right, 
+    rgba(3, 3, 3, 0) 0%, rgba(30, 30, 30, .9) 17.5%, rgba(3, 3, 3, 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  box-sizing: border-box;
+  padding-left: 5rem;
+}
+
+.gallery-toys {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.placeholder {
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: auto;
+  background-color: #555;
+  border-radius: 12px;
+}
+
+.projects-overlay {
+  background-color: #333;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+  max-width: clamp(200px, 100%, 1000px);
+  margin-bottom: 1rem;
+}
+
+.project img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  grid-row-end: span 2;
+}
+
+.project-description {
+  max-height: 200px;
+}
+
+.project-description p {
+  padding-bottom: .5rem;
+}
+
+.projects-overlay h2 a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.projector-overlay {
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  width: clamp(300px, 100%, 1000px);
+}
+
+.video-grid iframe {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.notebook-overlay {
+  background-color: #333;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallery {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  overflow-y: auto;
+  justify-content: center;
+}
+
+.column {
+  flex: calc(25% - .5rem);
+  max-width: min(25%, 250px);
+}
+
+.column img {
+  vertical-align: middle;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: .5rem;
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 800px) {
+  .column {
+      flex: calc(50% - .5rem);
+      max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+      flex: calc(100% - .5rem);
+      max-width: 100%;
+  }
+}
+
+#rhino {
+  display: grid;
+  padding: .5rem;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: auto;
+  align-content: start;
+  max-width: clamp(250px, 100%, 1200px);
+}
+
+.placeholder {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  background-color: #555;
+  border-radius: 12px;
+}
+
+nav {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  gap: 1rem;
+  padding: .5rem;
+  background-color: #555;
+  justify-content: center;
+}
+
+nav>img {
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
 }
 
 .gallery :not(.hidden) {
-    transition-delay: .5s;
+  transition-delay: .5s;
 }
