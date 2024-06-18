@@ -24,6 +24,7 @@ loadRoom().then((model) => {
   const scene = new Scene(model, goBackBtn);
   //scene.goToEnd("Plane004_2");
   scene.render();
+  setupSearchMenu(scene);
 });
 
 class Scene {
@@ -169,17 +170,23 @@ class Scene {
 
       this.clearOutline();
 
-      this.shouldAnimate = true;
-      this.mixer.play(this.lastIntersectObjName);
-      this.animate();
+      this.playAnimation(this.lastIntersectObjName);
+      this.lastIntersectObjName = null;
     });
 
-    this.goBackBtn.addEventListener("click", () => {
-      //no need to clear outline here, because we are going back to the main scene
-      this.shouldAnimate = true;
-      this.mixer.resume();
-      this.animate();
-    });
+    this.goBackBtn.addEventListener("click", this.resumeAnimation.bind(this));
+  }
+
+  playAnimation(animationName) {
+    this.shouldAnimate = true;
+    this.mixer.play(animationName);
+    this.animate();
+  }
+
+  resumeAnimation() {
+    this.shouldAnimate = true;
+    this.mixer.resume();
+    this.animate();
   }
 
   getIntersects(e) {
@@ -266,6 +273,10 @@ class Scene {
     this.shouldHideOutline = false;
     this.goBackBtn.style.display = "none";
   }
+
+  isInOverlay() {
+    return this.mixer.currentAnimation !== null;
+  }
 }
 
 class Mixer {
@@ -318,6 +329,7 @@ class Mixer {
     if (this.currentAnimation) {
       this.clock.stop();
       this.currentAnimation.stop();
+      this.currentAnimation = null;
     }
   }
 
@@ -405,11 +417,55 @@ const rhinoBtn = document.getElementById("rhino-btn");
 const adobeGallery = document.getElementById("adobe");
 const rhinoGallery = document.getElementById("rhino");
 
-adobeBtn.addEventListener("click", () => {
+adobeBtn.addEventListener("click", showAdobe);
+rhinoBtn.addEventListener("click", showRhino);
+
+function showAdobe() {
   adobeGallery.classList.remove("hidden");
   rhinoGallery.classList.add("hidden");
-});
-rhinoBtn.addEventListener("click", () => {
+}
+
+function showRhino() {
   adobeGallery.classList.add("hidden");
   rhinoGallery.classList.remove("hidden");
-});
+}
+
+function setupSearchMenu(scene) {
+  const searchDiv = document.querySelector(".search");
+
+  searchDiv.addEventListener("click", (e) => {
+    searchDiv.classList.add("hidden");
+    switch (e.target.id.replace("search-", "")) {
+      case "2d":
+        showAdobe();
+        scene.playAnimation("Plane004_2");
+        break;
+      case "3d":
+        showRhino();
+        scene.playAnimation("Plane004_2");
+        break;
+      case "stopmotion":
+        break;
+      case "about":
+        scene.playAnimation("Plane003_2");
+        break;
+      case "projects":
+        scene.playAnimation("Cube028");
+        break;
+      case "video":
+        scene.playAnimation("Cube011");
+        break;
+      default:
+        searchDiv.classList.remove("hidden");
+    }
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (scene.isInOverlay()) return;
+
+    if (e.ctrlKey && e.key === "k") {
+      e.preventDefault();
+      searchDiv.classList.toggle("hidden");
+    }
+  });
+}
